@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Реєстрація</title>
+    <link href="output.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-b from-blue-100 to-pink-100 min-h-screen flex items-center justify-center">
+    <div class="bg-blue-200 p-8 rounded-xl shadow-lg w-80">
+        <h2 class="text-xl font-bold text-blue-800 mb-6">Реєстрація</h2>
+        <div class="space-y-4">
+            <div>
+                <label for="login" class="block text-blue-600">Логін</label>
+                <input type="text" id="login" class="w-full p-2 rounded-xl border border-gray-300">
+            </div>
+            <div>
+                <label for="password" class="block text-blue-600">Пароль</label>
+                <input type="password" id="password" class="w-full p-2 rounded-xl border border-gray-300">
+            </div>
+            <div>
+                <label for="confirm-password" class="block text-blue-600">Підтвердити пароль</label>
+                <input type="password" id="confirm-password" class="w-full p-2 rounded-xl border border-gray-300">
+            </div>
+            <button id="register-btn" class="w-full bg-blue-400 text-white py-2 rounded-xl hover:bg-blue-400 transition">Зареєструватися</button>
+        </div>
+        <a href="index.html" class="block text-blue-600 mt-4 text-center">Повернутися на початкову сторінку</a>
+    </div>
+    <script>
+        document.getElementById('register-btn').addEventListener('click', function() {
+            const login = document.getElementById('login').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (password !== confirmPassword) {
+                alert('Паролі не співпадають');
+                return;
+            }
+
+            fetch('https://your-render-url.com/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ login, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'User registered successfully') {
+                    alert('Реєстрація успішна');
+                    window.location.href = 'login.html';
+                } else {
+                    alert('Помилка реєстрації');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
