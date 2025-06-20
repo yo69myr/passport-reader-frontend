@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Акаунт</title>
+    <link href="output.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-b from-blue-100 to-pink-100 min-h-screen flex items-center justify-center">
+    <div class="bg-blue-200 p-8 rounded-xl shadow-lg w-80">
+        <h2 class="text-xl font-bold text-blue-800 mb-6">Акаунт</h2>
+        <div class="space-y-4">
+            <p>Логін: <span id="login"></span></p>
+            <p>Дата створення: <span id="creation-date"></span></p>
+            <p>Підписка: <span id="subscription"></span></p>
+            <button id="logout-btn" class="w-full bg-red-400 text-white py-2 rounded-xl hover:bg-red-400 transition">Вийти</button>
+        </div>
+    </div>
+    <script>
+        const login = localStorage.getItem('login');
+        if (!login) window.location.href = 'login.html';
+
+        document.getElementById('login').textContent = login;
+        document.getElementById('creation-date').textContent = 'Невідомо'; // Потрібен додатковий маршрут у бекенді
+        document.getElementById('subscription').textContent = 'Активна'; // Потрібен додатковий маршрут
+
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
