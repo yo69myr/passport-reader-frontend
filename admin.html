@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Адміністративна панель</title>
+    <link href="output.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-b from-blue-100 to-pink-100 min-h-screen flex items-center justify-center">
+    <div class="bg-blue-200 p-8 rounded-xl shadow-lg max-w-5xl">
+        <h2 class="text-xl font-bold text-blue-800 mb-6">Адміністративна панель</h2>
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-blue-300">
+                    <th class="p-4 border">№</th>
+                    <th class="p-4 border">Логін</th>
+                    <th class="p-4 border">Дата створення</th>
+                    <th class="p-4 border">Пароль</th>
+                    <th class="p-4 border">Підписка</th>
+                </tr>
+            </thead>
+            <tbody id="users-table"></tbody>
+        </table>
+        <button id="logout-btn" class="w-full bg-red-400 text-white py-2 rounded-xl hover:bg-red-400 transition mt-6">Вийти</button>
+    </div>
+    <script>
+        const login = localStorage.getItem('login');
+        if (login !== 'yokoko') window.location.href = 'login.html';
+
+        // Для повного функціоналу потрібен маршрут /users у бекенді
+        const mockUsers = [
+            { id: 1, login: 'yokoko', creation_date: '2023-10-01', password: 'anonanonahegao69', subscription: 'active' }
+        ];
+        const tbody = document.getElementById('users-table');
+        mockUsers.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="p-4 border">${user.id}</td>
+                <td class="p-4 border">${user.login}</td>
+                <td class="p-4 border">${user.creation_date}</td>
+                <td class="p-4 border">${user.password}</td>
+                <td class="p-4 border">${user.subscription}</td>
+            `;
+            tbody.appendChild(row);
+        });
+
+        document.getElementById('logout-btn').addEventListener('click', function() {
+            localStorage.clear();
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
