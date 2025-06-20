@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вхід</title>
+    <link href="output.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-b from-blue-100 to-pink-100 min-h-screen flex items-center justify-center">
+    <div class="bg-blue-200 p-8 rounded-xl shadow-lg w-80">
+        <h2 class="text-xl font-bold text-blue-800 mb-6">Вхід</h2>
+        <div class="space-y-4">
+            <div>
+                <label for="login" class="block text-blue-600">Логін</label>
+                <input type="text" id="login" class="w-full p-2 rounded-xl border border-gray-300">
+            </div>
+            <div>
+                <label for="password" class="block text-blue-600">Пароль</label>
+                <input type="password" id="password" class="w-full p-2 rounded-xl border border-gray-300">
+            </div>
+            <button id="login-btn" class="w-full bg-blue-400 text-white py-2 rounded-xl hover:bg-blue-400 transition">Увійти</button>
+        </div>
+        <a href="index.html" class="block text-blue-600 mt-4 text-center">Повернутися на початкову сторінку</a>
+    </div>
+    <script>
+        document.getElementById('login-btn').addEventListener('click', function() {
+            const login = document.getElementById('login').value;
+            const password = document.getElementById('password').value;
+
+            fetch('https://passport-reader-backend.onrender.com', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ login, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Login successful') {
+                    localStorage.setItem('login', login);
+                    localStorage.setItem('token', data.token);
+                    if (login === 'yokoko' && password === 'anonanonahegao69') {
+                        window.location.href = 'admin.html';
+                    } else {
+                        window.location.href = 'account.html';
+                    }
+                } else {
+                    alert('Невірні дані');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
